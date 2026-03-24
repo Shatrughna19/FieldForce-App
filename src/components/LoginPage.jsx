@@ -26,7 +26,7 @@ const LoginPage = () => {
         <div className="login-icon-wrapper">
           <LogIn size={32} color="#ffffff" />
         </div>
-        <h1 className="login-title">Employee Portal</h1>
+        <h1 className="login-title">FieldForce App</h1>
         <p className="login-subtitle">Sign in to access your workspace</p>
       </div>
 
