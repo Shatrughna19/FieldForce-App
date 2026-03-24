@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function Navbar({ alertCount }) {
+export default function Navbar({ alertCount, activeMainTab, onTabChange }) {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function Navbar({ alertCount }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
+      <div className="navbar-brand" style={{ flex: 1 }}>
         <div className="navbar-logo">📍</div>
         <div>
           <div className="navbar-title">Field Force</div>
@@ -21,12 +21,22 @@ export default function Navbar({ alertCount }) {
         </div>
       </div>
 
-      <div className="navbar-center">
-        <div className="live-dot" />
-        <span className="live-label">LIVE</span>
+      <div className="navbar-center" style={{ background: 'transparent', border: 'none', padding: 0, gap: '8px' }}>
+        <button 
+          className={`nav-mode-btn ${activeMainTab === 'map' ? 'active' : ''}`}
+          onClick={() => onTabChange && onTabChange('map')}
+        >
+          🗺️ Map Tracking
+        </button>
+        <button 
+          className={`nav-mode-btn ${activeMainTab === 'analytics' ? 'active' : ''}`}
+          onClick={() => onTabChange && onTabChange('analytics')}
+        >
+          📊 Deep Analytics
+        </button>
       </div>
 
-      <div className="navbar-right">
+      <div className="navbar-right" style={{ flex: 1, justifyContent: 'flex-end' }}>
         <span className="nav-time">{timeStr}</span>
         {alertCount > 0 && (
           <span className="nav-badge">⚠️ {alertCount} Alerts</span>

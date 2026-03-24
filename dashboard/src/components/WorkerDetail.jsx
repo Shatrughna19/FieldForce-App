@@ -19,7 +19,7 @@ function BatteryBar({ pct }) {
   )
 }
 
-export default function WorkerDetail({ worker }) {
+export default function WorkerDetail({ worker, onAssignTask }) {
   const dispatch = useDispatch()
   if (!worker) return null
 
@@ -62,6 +62,43 @@ export default function WorkerDetail({ worker }) {
         <span className="detail-label">🔋 Battery</span>
         <BatteryBar pct={worker.battery} />
       </div>
+
+      <div className="worker-analytics" style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
+        <span className="detail-label" style={{ marginBottom: 12, display: 'block' }}>📊 Worker Analytics</span>
+        <div className="worker-detail-grid" style={{ gap: '12px' }}>
+          <div className="detail-item" style={{ background: 'var(--bg-secondary)', padding: '10px', borderRadius: '6px' }}>
+            <span className="detail-value" style={{ fontSize: '20px', color: 'var(--accent-green)' }}>92%</span>
+            <span className="detail-label" style={{ fontSize: '9px' }}>Task Completion</span>
+          </div>
+          <div className="detail-item" style={{ background: 'var(--bg-secondary)', padding: '10px', borderRadius: '6px' }}>
+            <span className="detail-value" style={{ fontSize: '20px', color: 'var(--accent-amber)' }}>14</span>
+            <span className="detail-label" style={{ fontSize: '9px' }}>Tasks Assigned</span>
+          </div>
+          <div className="detail-item" style={{ background: 'var(--bg-secondary)', padding: '10px', borderRadius: '6px' }}>
+            <span className="detail-value" style={{ fontSize: '20px', color: 'var(--text-primary)' }}>4.8</span>
+            <span className="detail-label" style={{ fontSize: '9px' }}>Performance Rating</span>
+          </div>
+          <div className="detail-item" style={{ background: 'var(--bg-secondary)', padding: '10px', borderRadius: '6px' }}>
+            <span className="detail-value" style={{ fontSize: '20px', color: 'var(--accent-blue)' }}>28</span>
+            <span className="detail-label" style={{ fontSize: '9px' }}>Days Active</span>
+          </div>
+        </div>
+      </div>
+
+      <button 
+        className="btn-assign-task" 
+        onClick={() => onAssignTask(worker.id)}
+        style={{ 
+          marginTop: 20, width: '100%', padding: '12px', 
+          background: 'rgba(59,130,246,0.1)', color: 'var(--accent-blue)', 
+          border: '1px solid rgba(59,130,246,0.3)', borderRadius: '6px', 
+          fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s'
+        }}
+        onMouseOver={e => e.currentTarget.style.background = 'rgba(59,130,246,0.2)'}
+        onMouseOut={e => e.currentTarget.style.background = 'rgba(59,130,246,0.1)'}
+      >
+        + Assign New Task
+      </button>
     </div>
   )
 }

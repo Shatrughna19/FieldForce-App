@@ -116,6 +116,15 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
+        <TouchableOpacity 
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 24, paddingVertical: 12, backgroundColor: 'rgba(59,130,246,0.1)', borderRadius: radius.md, borderWidth: 1, borderColor: 'rgba(59,130,246,0.2)' }}
+          onPress={() => router.push('/public/map')}
+          activeOpacity={0.8}
+        >
+          <Text style={{ fontSize: 20, marginRight: 8 }}>🗺️</Text>
+          <Text style={{ color: colors.accentBlue, fontWeight: '700', fontSize: 16 }}>Public Tracking Map</Text>
+        </TouchableOpacity>
+
         <Text style={styles.footer}>GeoTrack v1.0 · Hackathon Demo</Text>
       </Animated.View>
     </KeyboardAvoidingView>

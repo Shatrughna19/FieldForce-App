@@ -124,7 +124,7 @@ export default function HomeScreen() {
 
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
+        <TouchableOpacity style={styles.headerLeft} onPress={() => router.push('/home/profile')} activeOpacity={0.8}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>{getInitials(worker.name)}</Text>
           </View>
@@ -132,7 +132,7 @@ export default function HomeScreen() {
             <Text style={styles.workerName}>{worker.name}</Text>
             <Text style={styles.workerId}>ID: {worker.id}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.logoutBtn} disabled={loggingOut}>
           {loggingOut ? <ActivityIndicator size="small" color={colors.accentRed} /> : <Text style={styles.logoutText}>⏻</Text>}
         </TouchableOpacity>

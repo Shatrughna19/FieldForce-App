@@ -4,7 +4,8 @@ export default function StatsBar({ total, active, inactive, alerts }) {
     { icon: '✅', value: active ?? 18, label: 'Active Now', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
     { icon: '⏸️', value: inactive ?? 4, label: 'Inactive', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
     { icon: '🚨', value: alerts ?? 2, label: 'Alerts', color: '#ef4444', bg: 'rgba(239,68,68,0.12)' },
-    { icon: '📍', value: 7, label: 'Zones Covered', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)' },
+    { icon: '📋', value: 34, label: 'Assigned Tasks', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)' },
+    { icon: '🏆', value: 128, label: 'Completed', color: '#059669', bg: 'rgba(16,185,129,0.12)' },
   ]
 
   return (

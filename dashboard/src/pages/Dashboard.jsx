@@ -7,6 +7,8 @@ import MapView from '../components/MapView'
 import WorkerList from '../components/WorkerList'
 import AlertsPanel from '../components/AlertsPanel'
 import WorkerDetail from '../components/WorkerDetail'
+import TaskAssignmentModal from '../components/TaskAssignmentModal'
+import AnalyticsDashboard from '../components/AnalyticsDashboard'
 import SimFab from '../components/SimFab'
 import useSimulation from '../hooks/useSimulation'
 import '../App.css'
@@ -21,7 +23,15 @@ export default function Dashboard() {
   const [isSimulating, setIsSimulating] = useState(false)
   const [search, setSearch] = useState('')
 
-  useSimulation(isSimulating)
+  const [isAssignModalOpen, setAssignModalOpen] = useState(false)
+  const [assignWorkerId, setAssignWorkerId] = useState('')
+
+  const handleOpenAssign = (wId = '') => {
+    setAssignWorkerId(wId)
+    setAssignModalOpen(true)
+  }
+
+  const [activeMainTab, setActiveMainTab] = useState('map'); // 'map' | 'analytics'
 
   const alertCount = workers.filter((w) => w.status === 'alert').length
   const activeCount = workers.filter((w) => w.status === 'active').length
@@ -34,15 +44,23 @@ export default function Dashboard() {
 
   return (
     <div className="app-layout">
-      <Navbar alertCount={alertCount} />
-      <StatsBar
-        total={workers.length}
-        active={activeCount}
-        inactive={inactiveCount}
-        alerts={alertCount}
-      />
+      <Navbar alertCount={alertCount} activeMainTab={activeMainTab} onTabChange={setActiveMainTab} />
+      
+      {activeMainTab === 'map' && (
+        <StatsBar
+          total={workers.length}
+          active={activeCount}
+          inactive={inactiveCount}
+          alerts={alertCount}
+        />
+      )}
 
-      <div className="dashboard-body">
+      {activeMainTab === 'analytics' ? (
+        <div className="dashboard-body" style={{ overflowY: 'auto' }}>
+          <AnalyticsDashboard onAssignTask={handleOpenAssign} />
+        </div>
+      ) : (
+        <div className="dashboard-body">
         <MapView
           workers={workers}
           selectedWorker={selectedWorker}
@@ -78,6 +96,12 @@ export default function Dashboard() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
+                <button 
+                  onClick={() => handleOpenAssign()}
+                  style={{ width: '100%', padding: '10px', marginTop: 10, background: 'var(--accent-blue)', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                  + Assign Task Globally
+                </button>
               </div>
               <WorkerList
                 workers={workers}
@@ -85,13 +109,22 @@ export default function Dashboard() {
                 onSelectWorker={handleWorkerClick}
                 selectedWorker={selectedWorker}
               />
-              <WorkerDetail worker={selectedWorker} />
+              <WorkerDetail worker={selectedWorker} onAssignTask={handleOpenAssign} />
             </>
           ) : (
             <AlertsPanel />
           )}
         </div>
       </div>
+      )}
+
+      {isAssignModalOpen && (
+        <TaskAssignmentModal 
+          onClose={() => setAssignModalOpen(false)} 
+          preselectedWorkerId={assignWorkerId}
+          workers={workers}
+        />
+      )}
     </div>
   )
 }

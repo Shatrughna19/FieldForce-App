@@ -39,6 +39,20 @@ export default function RootLayout() {
             headerStyle: { backgroundColor: colors.bgSecondary },
           }}
         />
+        <Stack.Screen
+          name="home/profile"
+          options={{
+            title: 'Analytics Profile',
+            headerStyle: { backgroundColor: colors.bgSecondary },
+          }}
+        />
+        <Stack.Screen
+          name="public/map"
+          options={{
+            title: 'Live Traffic Map',
+            headerStyle: { backgroundColor: colors.bgSecondary },
+          }}
+        />
       </Stack>
     </>
   )
