@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { User, Mail, Briefcase, Hash, Users, LogIn } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { User, Mail, Briefcase, Hash, Users, MapPin } from 'lucide-react';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,17 +19,18 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login submitted:', formData);
-    // Add logic here to handle actual login
+    localStorage.setItem('user', JSON.stringify(formData));
+    navigate('/dashboard');
   };
 
   return (
     <div className="login-container">
       <div className="login-header">
         <div className="login-icon-wrapper">
-          <LogIn size={32} color="#ffffff" />
+          <MapPin size={32} color="#ffffff" />
         </div>
-        <h1 className="login-title">FieldForce App</h1>
-        <p className="login-subtitle">Sign in to access your workspace</p>
+        <h1 className="login-title" style={{ fontSize: '24px', fontWeight: 'bold' }}>Field Force</h1>
+        <p className="login-subtitle" style={{ color: '#94a3b8', fontSize: '11px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>MUNICIPAL WORKFORCE SYSTEM</p>
       </div>
 
       <form onSubmit={handleSubmit}>
